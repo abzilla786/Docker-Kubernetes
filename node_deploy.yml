@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+
+kind: Deployment #pod, service, replica set, ASG
+
+
+
+metadata:
+  name: node
+spec:
+  selector:
+    matchLabels:
+      app: node
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+        - name: node
+          image: abz786/node-app:v1
+
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              value: mongodb://mongo27017/posts
+
+          imagePullPolicy: Always
+
